@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Main page - XMCMC</title>
+  <meta name="description" content="XMCMC, a general-purpose Markov chain Monte Carlo sampler.">
+  <link rel="icon" href="assets/xmcmc-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    
+<aside class="sidebar">
+  <a class="brand" href="index.html"><img src="assets/xmcmc-mark.svg" alt="XMCMC mark"><strong>XMCMC</strong></a>
+  <nav class="navbox" aria-label="Main navigation">
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="index.html">Main page</a></li>
+      <li><a href="docs/index.html">Documentation</a></li>
+      <li><a href="examples/index.html">Examples</a></li>
+      <li><a href="reference/index.html">API reference</a></li>
+      <li><a href="community/index.html">Community</a></li>
+      <li><a href="changelog/index.html">Changelog</a></li>
+    </ul>
+  </nav>
+  <div class="navbox">
+    <h2>Project links</h2>
+    <ul>
+      <li><a href="https://github.com/XMCMC">GitHub organization</a></li>
+      <li><a href="https://github.com/XMCMC/XMCMC">Source repository</a></li>
+      <li><a href="https://github.com/XMCMC/XMCMC/issues">Issue tracker</a></li>
+    </ul>
+  </div>
+</aside>
+    <main class="content clearfix">
+      
+<div class="topline"><h1>XMCMC</h1><div class="page-tabs">Page &nbsp; Discussion &nbsp; View source</div></div>
+<p class="subtitle">A general-purpose Markov chain Monte Carlo sampler.</p>
+<aside class="infobox">
+  <div class="infobox-title">XMCMC</div>
+  <img src="assets/xmcmc-logo.png" alt="XMCMC logo">
+  <table>
+    <tr><th>Type</th><td>MCMC sampler</td></tr>
+    <tr><th>License</th><td>To be added</td></tr>
+    <tr><th>Repository</th><td><a href="https://github.com/XMCMC/XMCMC">github.com/XMCMC/XMCMC</a></td></tr>
+    <tr><th>Status</th><td>Early project page</td></tr>
+  </table>
+</aside>
+<p class="lede"><strong>XMCMC</strong> is a general-purpose toolkit for building, running, and diagnosing Markov chain Monte Carlo workflows. This site is structured like a compact project wiki: one main landing page, with short linked pages for installation, examples, reference material, and contributor notes.</p>
+<div class="notice"><strong>Editor note:</strong> Replace placeholder install commands and API names once the package layout is finalized. The site is deliberately static and dependency-free.</div>
+<nav class="toc" aria-label="Table of contents"><strong>Contents</strong><ol><li><a href="#overview">Overview</a></li><li><a href="#quick-start">Quick start</a></li><li><a href="#site-map">Site map</a></li><li><a href="#citation">Citation</a></li></ol></nav>
+<h2 id="overview">Overview</h2>
+<p>XMCMC is intended to provide a small, composable interface for sampling from user-defined target distributions. The project can document algorithms, diagnostics, examples, and implementation details here without requiring a full documentation build system.</p>
+<div class="grid">
+  <section class="card"><h3>General purpose</h3><p>Use XMCMC as a shared home for MCMC kernels, target definitions, diagnostics, and examples.</p></section>
+  <section class="card"><h3>Research friendly</h3><p>Keep mathematical notes, examples, and implementation details close to the source code.</p></section>
+  <section class="card"><h3>Simple publishing</h3><p>This site is plain HTML/CSS, so it can be served directly with GitHub Pages.</p></section>
+  <section class="card"><h3>Wiki-inspired</h3><p>The layout borrows the plain reading experience, sidebar navigation, infobox, and table-of-contents feel of Wikipedia.</p></section>
+</div>
+<h2 id="quick-start">Quick start</h2>
+<p>Update this section once the package manager and import path are final.</p>
+<pre><code># Placeholder install command
+pip install xmcmc
+
+# Placeholder Python usage
+from xmcmc import Sampler
+
+sampler = Sampler(target_log_density=my_log_density)
+chain = sampler.run(initial_state, draws=10_000)</code></pre>
+<h2 id="site-map">Site map</h2>
+<table class="data"><thead><tr><th>Page</th><th>Purpose</th></tr></thead><tbody>
+<tr><td><a href="docs/index.html">Documentation</a></td><td>Installation, concepts, and basic usage.</td></tr>
+<tr><td><a href="examples/index.html">Examples</a></td><td>Small examples for common target distributions and workflows.</td></tr>
+<tr><td><a href="reference/index.html">API reference</a></td><td>Public objects, functions, and configuration options.</td></tr>
+<tr><td><a href="community/index.html">Community</a></td><td>Contributing, support, roadmap, and governance notes.</td></tr>
+<tr><td><a href="changelog/index.html">Changelog</a></td><td>Release notes and project history.</td></tr>
+</tbody></table>
+<h2 id="citation">Citation</h2>
+<p>A citation block can go here once the package has a DOI, paper, or preferred citation format.</p>
+
+      <footer>XMCMC is an open-source project. This site is intentionally plain HTML and CSS so it can be edited directly in GitHub.</footer>
+    </main>
+  </div>
+</body>
+</html>

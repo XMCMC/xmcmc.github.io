@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API reference - XMCMC</title>
+  <meta name="description" content="XMCMC, a general-purpose Markov chain Monte Carlo sampler.">
+  <link rel="icon" href="../assets/xmcmc-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    
+<aside class="sidebar">
+  <a class="brand" href="../index.html"><img src="../assets/xmcmc-mark.svg" alt="XMCMC mark"><strong>XMCMC</strong></a>
+  <nav class="navbox" aria-label="Main navigation">
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="../index.html">Main page</a></li>
+      <li><a href="../docs/index.html">Documentation</a></li>
+      <li><a href="../examples/index.html">Examples</a></li>
+      <li><a href="../reference/index.html">API reference</a></li>
+      <li><a href="../community/index.html">Community</a></li>
+      <li><a href="../changelog/index.html">Changelog</a></li>
+    </ul>
+  </nav>
+  <div class="navbox">
+    <h2>Project links</h2>
+    <ul>
+      <li><a href="https://github.com/XMCMC">GitHub organization</a></li>
+      <li><a href="https://github.com/XMCMC/XMCMC">Source repository</a></li>
+      <li><a href="https://github.com/XMCMC/XMCMC/issues">Issue tracker</a></li>
+    </ul>
+  </div>
+</aside>
+    <main class="content clearfix">
+      
+<div class="topline"><h1>API reference</h1><div class="page-tabs"><a href="../index.html">Main page</a></div></div>
+<p class="subtitle">A placeholder reference page for public interfaces.</p>
+<div class="notice">Update names and signatures after the first public API is stable.</div>
+<h2>Sampler</h2>
+<table class="data"><tr><th>Member</th><th>Description</th></tr><tr><td><code>Sampler(...)</code></td><td>Create a sampler for a target log density.</td></tr><tr><td><code>run(...)</code></td><td>Run a chain and return samples plus metadata.</td></tr><tr><td><code>diagnostics(...)</code></td><td>Compute or attach convergence diagnostics.</td></tr></table>
+<h2>Configuration</h2>
+<table class="data"><tr><th>Option</th><th>Description</th></tr><tr><td><code>draws</code></td><td>Number of retained draws.</td></tr><tr><td><code>warmup</code></td><td>Number of warmup or adaptation iterations.</td></tr><tr><td><code>seed</code></td><td>Random seed for reproducibility.</td></tr></table>
+
+      <footer>XMCMC is an open-source project. This site is intentionally plain HTML and CSS so it can be edited directly in GitHub.</footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+<title id="title">XMCMC mark</title><desc id="desc">A stylized X with connected sampling nodes.</desc>
+<rect width="240" height="240" rx="28" fill="#f8f9fa"/>
+<path d="M38 42h54l39 56-31 44-62-100z" fill="#06458f"/>
+<path d="M202 42h-54l-110 156h54L202 42z" fill="#079b96"/>
+<path d="M38 198h54l110-156h-54L38 198z" fill="#06458f" opacity=".96"/>
+<path d="M202 198h-54L109 142l31-44 62 100z" fill="#079b96" opacity=".96"/>
+<path d="M45 165 L83 145 L119 119 L158 77" fill="none" stroke="#263746" stroke-width="10" stroke-linecap="round"/>
+<g fill="#075aa3" stroke="#fff" stroke-width="8"><circle cx="45" cy="165" r="18"/><circle cx="83" cy="145" r="18"/></g>
+<g fill="#079b96" stroke="#fff" stroke-width="8"><circle cx="119" cy="119" r="18"/><circle cx="158" cy="77" r="18"/></g>
+</svg>

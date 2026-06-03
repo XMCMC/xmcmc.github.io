@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Examples - XMCMC</title>
+  <meta name="description" content="XMCMC, a general-purpose Markov chain Monte Carlo sampler.">
+  <link rel="icon" href="../assets/xmcmc-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    
+<aside class="sidebar">
+  <a class="brand" href="../index.html"><img src="../assets/xmcmc-mark.svg" alt="XMCMC mark"><strong>XMCMC</strong></a>
+  <nav class="navbox" aria-label="Main navigation">
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="../index.html">Main page</a></li>
+      <li><a href="../docs/index.html">Documentation</a></li>
+      <li><a href="../examples/index.html">Examples</a></li>
+      <li><a href="../reference/index.html">API reference</a></li>
+      <li><a href="../community/index.html">Community</a></li>
+      <li><a href="../changelog/index.html">Changelog</a></li>
+    </ul>
+  </nav>
+  <div class="navbox">
+    <h2>Project links</h2>
+    <ul>
+      <li><a href="https://github.com/XMCMC">GitHub organization</a></li>
+      <li><a href="https://github.com/XMCMC/XMCMC">Source repository</a></li>
+      <li><a href="https://github.com/XMCMC/XMCMC/issues">Issue tracker</a></li>
+    </ul>
+  </div>
+</aside>
+    <main class="content clearfix">
+      
+<div class="topline"><h1>Examples</h1><div class="page-tabs"><a href="../index.html">Main page</a></div></div>
+<p class="subtitle">Small, copyable MCMC workflows.</p>
+<h2>Gaussian target</h2>
+<pre><code>import numpy as np
+from xmcmc import Sampler
+
+def log_density(x):
+    x = np.asarray(x)
+    return -0.5 * np.dot(x, x)
+
+sampler = Sampler(target_log_density=log_density)
+chain = sampler.run(initial_state=np.zeros(2), draws=10_000)</code></pre>
+<h2>Bayesian model sketch</h2>
+<pre><code>def log_posterior(params, data):
+    return log_likelihood(params, data) + log_prior(params)
+
+sampler = Sampler(target_log_density=lambda p: log_posterior(p, data))
+fit = sampler.run(initial_state=start, draws=20_000)</code></pre>
+<h2>Suggested additions</h2>
+<ul><li>Mixture distributions</li><li>Hierarchical models</li><li>Diagnostics and trace plots</li><li>Custom proposal kernels</li></ul>
+
+      <footer>XMCMC is an open-source project. This site is intentionally plain HTML and CSS so it can be edited directly in GitHub.</footer>
+    </main>
+  </div>
+</body>
+</html>
