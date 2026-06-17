@@ -3,14 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Main page - XMCMC</title>
-  <meta name="description" content="XMCMC, a general-purpose Markov chain Monte Carlo sampler with key optimizations making it very fast.">
+  <title>XMCMC</title>
+  <meta name="description" content="XMCMC is an R package for writing fast, compiled Bayesian MCMC models with user-defined update blocks and deterministic caches.">
   <link rel="icon" href="assets/xmcmc-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .infobox {
+      box-sizing: border-box;
+      max-width: 320px;
+      overflow: hidden;
+    }
+
+    .infobox img {
+      box-sizing: border-box;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .infobox table {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .infobox th,
+    .infobox td {
+      box-sizing: border-box;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+
+    .infobox th {
+      width: 34%;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .card {
+      border: 1px solid #c8ccd1;
+      border-radius: 6px;
+      padding: 1rem;
+      background: #fff;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      margin-bottom: 0;
+    }
+
+    .install {
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 <body>
   <div class="site-shell">
-    
+
 <aside class="sidebar">
   <a class="brand" href="index.html"><img src="assets/xmcmc-mark.svg" alt="XMCMC mark"><strong>XMCMC</strong></a>
   <nav class="navbox" aria-label="Main navigation">
@@ -29,50 +89,179 @@
     <ul>
       <li><a href="https://github.com/XMCMC">GitHub organization</a></li>
       <li><a href="https://github.com/XMCMC/XMCMC">Source repository</a></li>
+      <li><a href="https://github.com/XMCMC/XMCMC-examples">Examples repository</a></li>
       <li><a href="https://github.com/XMCMC/XMCMC/issues">Issue tracker</a></li>
     </ul>
   </div>
 </aside>
+
     <main class="content clearfix">
-      
+
 <div class="topline"><h1>XMCMC</h1><div class="page-tabs">Page &nbsp; Discussion &nbsp; View source</div></div>
-<p class="subtitle">A fast, general-purpose MCMC language and sampler.</p>
+<p class="subtitle">Fast, compiled Bayesian MCMC models with user-defined update blocks.</p>
+
 <aside class="infobox">
   <div class="infobox-title">XMCMC</div>
   <img src="assets/xmcmc-logo.png" alt="XMCMC logo">
   <table>
-    <tr><th>Type</th><td>MCMC sampler</td></tr>
-    <tr><th>License</th><td>To be added</td></tr>
+    <tr><th>Type</th><td>R package and compiled MCMC sampler</td></tr>
+    <tr><th>Language</th><td>R interface, C model code, Rust sampler</td></tr>
     <tr><th>Repository</th><td><a href="https://github.com/XMCMC/XMCMC">github.com/XMCMC/XMCMC</a></td></tr>
-    <tr><th>Status</th><td>Early project page</td></tr>
+    <tr><th>Examples</th><td><a href="examples/index.html">Example gallery</a></td></tr>
+    <tr><th>Status</th><td>Early development</td></tr>
   </table>
 </aside>
-<p class="lede"><strong>XMCMC</strong> is a general Bayesian modeling language and sampler that is block and cache optimized. It tends to outperform its competitors like Stan and JAGS, especially as model complexity grows.</p>
-<nav class="toc" aria-label="Table of contents"><strong>Contents</strong><ol><li><a href="#overview">Overview</a></li><li><a href="#quick-start">Quick start</a></li><li><a href="#site-map">Site map</a></li><li><a href="#citation">Citation</a></li></ol></nav>
-<h2 id="overview">Overview</h2>
-<p>XMCMC takes a minimalist modeling language perspective, so the language is easy to learn and use.</p>
-<h2 id="quick-start">Quick start</h2>
-<p>Update this section once the package manager and import path are final.</p>
-<pre><code># Placeholder install command
-pip install xmcmc
 
-# Placeholder Python usage
-from xmcmc import Sampler
+<p class="lede"><strong>XMCMC</strong> is an R package for writing fast, compiled Bayesian MCMC models with user-defined parameter update blocks. It is useful when you know the structure of your model and want to tell the sampler exactly how each parameter should be updated, including optional deterministic caches for expensive repeated calculations.</p>
 
-sampler = Sampler(target_log_density=my_log_density)
-chain = sampler.run(initial_state, draws=10_000)</code></pre>
-<h2 id="site-map">Site map</h2>
-<table class="data"><thead><tr><th>Page</th><th>Purpose</th></tr></thead><tbody>
-<tr><td><a href="docs/index.html">Documentation</a></td><td>Installation, concepts, and basic usage.</td></tr>
-<tr><td><a href="examples/index.html">Examples</a></td><td>Small examples for common target distributions and workflows.</td></tr>
-<tr><td><a href="reference/index.html">API reference</a></td><td>Public objects, functions, and configuration options.</td></tr>
-<tr><td><a href="community/index.html">Community</a></td><td>Contributing, support, roadmap, and governance notes.</td></tr>
-<tr><td><a href="changelog/index.html">Changelog</a></td><td>Release notes and project history.</td></tr>
-</tbody></table>
-<h2 id="citation">Citation</h2>
-<p>A citation block can go here once the package has a DOI, paper, or preferred citation format.</p>
+<p>For more details, see the <a href="https://xmcmc.github.io">XMCMC website</a> and the <a href="https://github.com/XMCMC/XMCMC">source repository</a>.</p>
 
-      <footer>XMCMC is an open-source project. This site is intentionally plain HTML and CSS so it can be edited directly in GitHub.</footer>
+<nav class="toc" aria-label="Table of contents">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#why-xmcmc">Why XMCMC?</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#first-example">First example</a></li>
+    <li><a href="#cache-optimization">Cache optimization</a></li>
+    <li><a href="#examples">Examples</a></li>
+  </ol>
+</nav>
+
+<h2 id="why-xmcmc">Why XMCMC?</h2>
+<p>XMCMC is designed for models where generic MCMC systems spend time recomputing work that the model author knows how to avoid. A model can define scalar, grouped, and discrete update blocks, and those blocks are compiled into fast model-specific code.</p>
+
+<h2 id="install">Install</h2>
+<p>Install the development version from GitHub:</p>
+
+<pre class="install"><code>install.packages("remotes")
+remotes::install_github("XMCMC/XMCMC")</code></pre>
+
+<p>XMCMC compiles model-specific C code and a Rust sampler, so you need a working C compiler and Rust <code>cargo</code> on your system path.</p>
+
+<h2 id="first-example">First example: Gaussian regression</h2>
+<p>The model below simulates a regression problem with an <code>x</code> matrix, estimates the regression coefficients, and estimates the residual standard deviation through <code>logsigma</code>.</p>
+
+<pre><code>library(XMCMC)
+
+set.seed(1)
+
+n &lt;- 1000L
+p &lt;- 5L
+
+x &lt;- matrix(rnorm(n * p), nrow = n, ncol = p)
+x &lt;- cbind(1, x)        # first column is the intercept
+p &lt;- ncol(x)
+
+beta_true &lt;- c(0.5, 1.0, -0.75, 0.5, 0.0, -0.25)
+sigma_true &lt;- 0.75
+
+y &lt;- as.numeric(x %*% beta_true + rnorm(n, 0, sigma_true))
+
+data &lt;- list(n = n, p = p, x = x, y = y)</code></pre>
+
+<pre><code>model_src &lt;- '
+param beta(p)
+param logsigma(1)
+
+func y_lpdf() {
+  double sigma = exp(logsigma(1));
+
+  for (i = 1:n) {
+    double mu = 0.0;
+
+    for (j = 1:p) {
+      mu += beta(j) * x(i,j);
+    }
+
+    y(i) ~ dnorm(mu, sigma);
+  }
+}
+
+block beta(j) {
+  beta(j) ~ dnorm(0, 10);
+  y_lpdf();
+}
+
+block logsigma(1) {
+  logsigma(1) ~ dnorm(0, 2);
+  y_lpdf();
+}
+'
+
+fit &lt;- XMCMC(
+  model = model_src,
+  data = data,
+  samples = 2000,
+  burnin = 1000,
+  out = "chain_regression.bin"
+)
+
+draws &lt;- read_XMCMC("chain_regression.bin")
+head(draws)</code></pre>
+
+<h2 id="cache-optimization">Cache optimization</h2>
+<p>In the plain model, each scalar coefficient proposal rebuilds the full linear predictor. For large <code>p</code>, that is wasteful because changing <code>beta(j)</code> only changes <code>mu(i)</code> by one rank-one update.</p>
+
+<pre><code>model_src_cached &lt;- '
+param beta(p)
+param logsigma(1)
+
+func y_lpdf() {
+  double sigma = exp(logsigma(1));
+
+  for (i = 1:n) {
+    y(i) ~ dnorm(mu(i), sigma);
+  }
+}
+
+block beta(j) {
+  beta(j) ~ dnorm(0, 10);
+  y_lpdf();
+} cache mu(n) {
+  for (i = 1:n) {
+    mu(i) = 0.0;
+
+    for (k = 1:p) {
+      mu(i) += beta(k) * x(i,k);
+    }
+  }
+} update mu(n) {
+  for (i = 1:n) {
+    mu(i) += (proposal(beta(j)) - current(beta(j))) * x(i,j);
+  }
+}
+
+block logsigma(1) {
+  logsigma(1) ~ dnorm(0, 2);
+  y_lpdf();
+}
+'</code></pre>
+
+<p>The cached model is mathematically the same model as the plain version. The difference is computational: <code>mu(n)</code> is initialized once and then maintained incrementally as one coefficient changes at a time.</p>
+
+<h2 id="examples">Examples</h2>
+<p>The examples section collects rendered example pages and runnable model patterns.</p>
+
+<div class="cards">
+  <section class="card">
+    <h3><a href="examples/index.html">Example gallery</a></h3>
+    <p>Browse all rendered examples currently available on the site.</p>
+  </section>
+  <section class="card">
+    <h3><a href="examples/linear-regression.html">Linear regression</a></h3>
+    <p>A first Gaussian regression model with an <code>x</code> matrix and estimated residual scale.</p>
+  </section>
+  <section class="card">
+    <h3><a href="examples/cached-regression.html">Cached regression</a></h3>
+    <p>Shows how to cache and update the linear predictor <code>mu(n)</code>.</p>
+  </section>
+  <section class="card">
+    <h3><a href="examples/variable-selection.html">Variable selection</a></h3>
+    <p>Sparse regression with discrete inclusion indicators and custom update blocks.</p>
+  </section>
+</div>
+
+<footer>XMCMC is an open-source project. This site is intentionally plain HTML and CSS so it can be edited directly in GitHub.</footer>
     </main>
   </div>
 </body>
