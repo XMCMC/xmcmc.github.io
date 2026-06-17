@@ -41,27 +41,6 @@
     <li><a href="cached-regression.html">Cached regression with mu cache</a></li>
     <li><a href="variable-selection.html">Sparse variable selection</a></li>
 </ul>
-
-<p class="subtitle">Small, copyable MCMC workflows.</p>
-<h2>Gaussian target</h2>
-<pre><code>import numpy as np
-from xmcmc import Sampler
-
-def log_density(x):
-    x = np.asarray(x)
-    return -0.5 * np.dot(x, x)
-
-sampler = Sampler(target_log_density=log_density)
-chain = sampler.run(initial_state=np.zeros(2), draws=10_000)</code></pre>
-<h2>Bayesian model sketch</h2>
-<pre><code>def log_posterior(params, data):
-    return log_likelihood(params, data) + log_prior(params)
-
-sampler = Sampler(target_log_density=lambda p: log_posterior(p, data))
-fit = sampler.run(initial_state=start, draws=20_000)</code></pre>
-<h2>Suggested additions</h2>
-<ul><li>Mixture distributions</li><li>Hierarchical models</li><li>Diagnostics and trace plots</li><li>Custom proposal kernels</li></ul>
-
       <footer>XMCMC is an open-source project. This site is intentionally plain HTML and CSS so it can be edited directly in GitHub.</footer>
     </main>
   </div>
