@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XMCMC Distributions</title>
+  <style>
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.45; max-width: 1100px; margin: 2rem auto; padding: 0 1rem; color: #111; }
+    h1, h2, h3 { line-height: 1.2; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 6px; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0 2rem; }
+    th, td { border: 1px solid #d0d7de; padding: 0.5rem 0.65rem; vertical-align: top; }
+    th { background: #f6f8fa; text-align: left; }
+    .note { background: #fff8c5; border: 1px solid #eac54f; padding: 0.75rem 1rem; border-radius: 6px; }
+    .small { font-size: 0.94rem; }
+  </style>
+</head>
+<body>
+  <h1>XMCMC Distribution Reference</h1>
+
+  <p>This page lists the distributions currently exposed by the XMCMC model translator/header. Distribution names follow the XMCMC convention of using <code>d</code>-prefixed names such as <code>dnorm</code>, <code>dbern</code>, <code>dmvn</code>, and <code>dinvwish</code>.</p>
+
+  <h2>Two ways to use a distribution</h2>
+
+  <h3>1. Sampling-statement syntax</h3>
+  <p>Use this when you want XMCMC to translate the distribution statement into an addition to the current block target.</p>
+
+  <pre><code>theta ~ dnorm(0, 1);
+y(i) ~ dnorm(mu(i), sigma);
+z(i) ~ dbern(p(i));</code></pre>
+
+  <p>For vector or matrix-like contiguous objects, use a range on the left side:</p>
+
+  <pre><code>vec utem(2);
+vec zero2(2);
+mat Sigma(2,2);
+
+utem(1:2) ~ dmvn(zero2, Sigma);</code></pre>
+
+  <h3>2. Manual target-accumulator syntax</h3>
+  <p>Use this when you want to write the log-density contribution explicitly. Blocks automatically have an accumulator named <code>target</code>, so users do not need to declare or return it.</p>
+
+  <pre><code>target += dnorm_lpdf(theta, 0, 1);
+target += normal_lpdf(theta, 0, 1);
+target += dmvn_lpdf(utem, zero2, Sigma, 2);</code></pre>
+
+  <div class="note small">
+    <strong>Note:</strong> The sampling-statement syntax generally omits the left-hand variable from the argument list. The manual <code>target += ..._lpdf(...)</code> syntax includes the sampled value as the first argument.
+  </div>
+
+  <h2>Continuous scalar distributions</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Distribution</th>
+        <th>Sampling-statement form</th>
+        <th>Manual target form</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Normal</td><td><code>x ~ dnorm(mean, sd);</code></td><td><code>target += dnorm_lpdf(x, mean, sd);</code></td><td><code>sd &gt; 0</code></td></tr>
+      <tr><td>Standard normal</td><td><code>x ~ normal01();</code></td><td><code>target += normal01_lpdf(x);</code></td><td>Mean 0, SD 1.</td></tr>
+      <tr><td>Normal with SD 1</td><td><code>x ~ normal_sd1(mean);</code></td><td><code>target += normal_sd1_lpdf(x, mean);</code></td><td>Useful hot-path helper.</td></tr>
+      <tr><td>Uniform</td><td><code>x ~ dunif(min, max);</code></td><td><code>target += dunif_lpdf(x, min, max);</code></td><td><code>min &lt;= x &lt;= max</code>.</td></tr>
+      <tr><td>Exponential</td><td><code>x ~ dexp(rate);</code></td><td><code>target += dexp_lpdf(x, rate);</code></td><td><code>rate &gt; 0</code>.</td></tr>
+      <tr><td>Gamma</td><td><code>x ~ dgamma(shape, rate);</code></td><td><code>target += dgamma_lpdf(x, shape, rate);</code></td><td>Shape-rate parameterization.</td></tr>
+      <tr><td>Inverse gamma</td><td><code>x ~ dinvgamma(shape, rate);</code></td><td><code>target += dinvgamma_lpdf(x, shape, rate);</code></td><td>Shape-rate parameterization.</td></tr>
+      <tr><td>Beta</td><td><code>x ~ dbeta(a, b);</code></td><td><code>target += dbeta_lpdf(x, a, b);</code></td><td>Support <code>0 &lt; x &lt; 1</code>.</td></tr>
+      <tr><td>Cauchy</td><td><code>x ~ dcauchy(location, scale);</code></td><td><code>target += dcauchy_lpdf(x, location, scale);</code></td><td><code>scale &gt; 0</code>.</td></tr>
+      <tr><td>Student t</td><td><code>x ~ dt(df, location, scale);</code></td><td><code>target += dt_lpdf(x, df, location, scale);</code></td><td><code>df &gt; 0</code>, <code>scale &gt; 0</code>.</td></tr>
+      <tr><td>Chi-square</td><td><code>x ~ dchisq(df);</code></td><td><code>target += dchisq_lpdf(x, df);</code></td><td><code>df &gt; 0</code>.</td></tr>
+      <tr><td>Lognormal</td><td><code>x ~ dlnorm(meanlog, sdlog);</code></td><td><code>target += dlnorm_lpdf(x, meanlog, sdlog);</code></td><td>Normal prior on <code>log(x)</code>.</td></tr>
+      <tr><td>Logistic</td><td><code>x ~ dlogis(location, scale);</code></td><td><code>target += dlogis_lpdf(x, location, scale);</code></td><td><code>scale &gt; 0</code>.</td></tr>
+      <tr><td>Laplace</td><td><code>x ~ dlaplace(location, scale);</code></td><td><code>target += dlaplace_lpdf(x, location, scale);</code></td><td>Double-exponential density.</td></tr>
+      <tr><td>Weibull</td><td><code>x ~ dweibull(shape, scale);</code></td><td><code>target += dweibull_lpdf(x, shape, scale);</code></td><td><code>shape &gt; 0</code>, <code>scale &gt; 0</code>.</td></tr>
+      <tr><td>Pareto</td><td><code>x ~ dpareto(xmin, alpha);</code></td><td><code>target += dpareto_lpdf(x, xmin, alpha);</code></td><td>Support <code>x &gt;= xmin</code>.</td></tr>
+      <tr><td>Half-normal</td><td><code>x ~ dhalfnorm(sd);</code></td><td><code>target += dhalfnorm_lpdf(x, sd);</code></td><td>Support <code>x &gt;= 0</code>.</td></tr>
+      <tr><td>Half-Cauchy</td><td><code>x ~ dhalfcauchy(scale);</code></td><td><code>target += dhalfcauchy_lpdf(x, scale);</code></td><td>Support <code>x &gt;= 0</code>.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Discrete distributions</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Distribution</th>
+        <th>Sampling-statement form</th>
+        <th>Manual target form</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Bernoulli</td><td><code>y ~ dbern(prob);</code></td><td><code>target += dbern_lpdf(y, prob);</code></td><td><code>prob</code> is on the probability scale.</td></tr>
+      <tr><td>Bernoulli logit</td><td><code>y ~ bernoulli_logit(eta);</code></td><td><code>target += bernoulli_logit_lpdf(y, eta);</code></td><td>Logit-link Bernoulli.</td></tr>
+      <tr><td>Bernoulli probit</td><td><code>y ~ bernoulli_probit(eta);</code></td><td><code>target += bernoulli_probit_lpdf(y, eta);</code></td><td>Probit-link Bernoulli.</td></tr>
+      <tr><td>Bernoulli cloglog</td><td><code>y ~ bernoulli_cloglog(eta);</code></td><td><code>target += bernoulli_cloglog_lpdf(y, eta);</code></td><td>Complementary-log-log Bernoulli.</td></tr>
+      <tr><td>Binomial</td><td><code>y ~ dbinom(size, prob);</code></td><td><code>target += dbinom_lpdf(y, size, prob);</code></td><td><code>prob</code> is on the probability scale.</td></tr>
+      <tr><td>Binomial logit</td><td><code>y ~ binomial_logit(size, eta);</code></td><td><code>target += binomial_logit_lpdf(y, size, eta);</code></td><td>Logit-link binomial.</td></tr>
+      <tr><td>Poisson</td><td><code>y ~ dpois(lambda);</code></td><td><code>target += dpois_lpdf(y, lambda);</code></td><td><code>lambda &gt; 0</code>.</td></tr>
+      <tr><td>Poisson log</td><td><code>y ~ poisson_log(eta);</code></td><td><code>target += poisson_log_lpdf(y, eta);</code></td><td>Uses <code>lambda = exp(eta)</code>.</td></tr>
+      <tr><td>Negative binomial</td><td><code>y ~ dnbinom(size, prob);</code></td><td><code>target += dnbinom_lpdf(y, size, prob);</code></td><td>Size-probability parameterization.</td></tr>
+      <tr><td>Negative binomial log-mean</td><td><code>y ~ dnbinom_log(eta, size);</code></td><td><code>target += dnbinom_log_lpdf(y, eta, size);</code></td><td>Uses <code>mu = exp(eta)</code>.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Multivariate and covariance distributions</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Distribution</th>
+        <th>Sampling-statement form</th>
+        <th>Manual target form</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Bivariate normal, covariance matrix</td><td><code>v(1:2) ~ dbvn(mean2, Sigma2);</code></td><td><code>target += dbvn_cov_lpdf(v, mean2, Sigma2);</code></td><td><code>Sigma2</code> is a contiguous 2x2 covariance matrix.</td></tr>
+      <tr><td>Bivariate normal, scalar parameters</td><td><code>x1 ~ dbvn(x2, mean1, mean2, sigma1, sigma2, rho);</code></td><td><code>target += dbvn_lpdf(x1, x2, mean1, mean2, sigma1, sigma2, rho);</code></td><td>Mostly useful in manual target syntax.</td></tr>
+      <tr><td>Multivariate normal</td><td><code>x(1:k) ~ dmvn(mean, Sigma);</code></td><td><code>target += dmvn_lpdf(x, mean, Sigma, k);</code></td><td><code>Sigma</code> is a contiguous <code>k x k</code> covariance matrix.</td></tr>
+      <tr><td>Wishart</td><td><code>W(1:k2) ~ dwish(scale, df, k);</code></td><td><code>target += dwish_lpdf(W, scale, df, k);</code></td><td>Prior for positive-definite covariance/precision matrices.</td></tr>
+      <tr><td>Inverse Wishart</td><td><code>W(1:k2) ~ dinvwish(scale, df, k);</code></td><td><code>target += dinvwish_lpdf(W, scale, df, k);</code></td><td>Common covariance-matrix prior.</td></tr>
+      <tr><td>LKJ correlation, 2D</td><td><code>R(1:4) ~ dlkjcorr2(eta);</code></td><td><code>target += dlkjcorr2_lpdf(R, eta);</code></td><td>2x2 correlation matrix only. Diagonal must be 1.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Aliases</h2>
+  <p>The translator also accepts some non-<code>d</code> aliases, mainly for compatibility: <code>normal</code>, <code>uniform</code>, <code>exponential</code>, <code>gamma</code>, <code>invgamma</code>, <code>beta</code>, <code>cauchy</code>, <code>student_t</code>, <code>chisq</code>, <code>lognormal</code>, <code>logistic</code>, <code>laplace</code>, <code>weibull</code>, <code>pareto</code>, <code>halfnorm</code>, <code>halfcauchy</code>, <code>bernoulli</code>, <code>binomial</code>, <code>poisson</code>, <code>negbinomial</code>, <code>mvn</code>, <code>multi_normal</code>, <code>multivariate_normal</code>, <code>bvn</code>, <code>bivariate_normal</code>, <code>wishart</code>, <code>invwishart</code>, <code>inv_wishart</code>, and <code>lkjcorr2</code>.</p>
+
+  <h2>Example: covariance prior with a local matrix</h2>
+  <pre><code>block u(j,l) {
+  vec utem(2);
+  vec zero2(2);
+  mat Sigma_u(2,2);
+
+  double tau0 = exp(logtau0(1));
+  double tau1 = exp(logtau1(1));
+  double rho = tanh(rho_raw(1));
+
+  Sigma_u(1,1) = tau0 * tau0;
+  Sigma_u(2,2) = tau1 * tau1;
+  Sigma_u(1,2) = rho * tau0 * tau1;
+  Sigma_u(2,1) = Sigma_u(1,2);
+
+  zero2(1) = 0;
+  zero2(2) = 0;
+
+  utem(1) = u(j,1);
+  utem(2) = u(j,2);
+
+  utem(1:2) ~ dmvn(zero2, Sigma_u);
+}</code></pre>
+
+  <h2>Example: manual target syntax</h2>
+  <pre><code>block logtau0(1) {
+  vec utem(2);
+  vec zero2(2);
+  mat Sigma_u(2,2);
+
+  /* fill Sigma_u here */
+
+  target += dnorm_lpdf(logtau0(1), 0, 2);
+
+  for (j = 1:m) {
+    utem(1) = u(j,1);
+    utem(2) = u(j,2);
+    target += dmvn_lpdf(utem, zero2, Sigma_u, 2);
+  }
+}</code></pre>
+
+</body>
+</html>
